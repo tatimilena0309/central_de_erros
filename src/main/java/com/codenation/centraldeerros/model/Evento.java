@@ -1,23 +1,45 @@
 package com.codenation.centraldeerros.model;
 
 import com.codenation.centraldeerros.enums.Level;
+import lombok.Data;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
+@Data
+@Table(name = "evento")
+@EntityListeners(AuditingEntityListener.class)
 @Entity
 public class Evento {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+
+    @NotNull
+    @NotBlank
     private Level level;
+
+    @NotNull
+    @NotBlank
     private String descricaoEvento;
+
+    @NotNull
+    @NotBlank
     private String logEvento;
+
+    @NotNull
+    @NotBlank
     private String origem;
+
+    @NotNull
+    @NotBlank
     private Timestamp data;
+
+    @NotNull
+    @NotBlank
     private Integer quantidade;
 
     public Evento() {

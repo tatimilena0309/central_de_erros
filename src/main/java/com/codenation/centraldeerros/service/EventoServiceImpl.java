@@ -1,5 +1,6 @@
 package com.codenation.centraldeerros.service;
 
+import com.codenation.centraldeerros.enums.Level;
 import com.codenation.centraldeerros.model.Evento;
 import com.codenation.centraldeerros.repository.EventoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,10 @@ public class EventoServiceImpl implements EventoService {
 
     @Autowired
     private EventoRepository eventoRepository;
+
+    public EventoServiceImpl(EventoRepository eventoRepository) {
+        this.eventoRepository = eventoRepository;
+    }
 
     @Override
     public List<Evento> findAll(Pageable pageable) {
@@ -36,7 +41,13 @@ public class EventoServiceImpl implements EventoService {
     }
 
     @Override
-    public List<Evento> findByLevel(String level, Pageable pageable) {
-        return null;
+    public List<Evento> findByLevel(Level level, Pageable pageable) {
+
+        return this.eventoRepository.findByLevel(level,pageable).getContent();
+    }
+
+    @Override
+    public List<Evento> findById(Long id, Pageable pageable) {
+        return this.eventoRepository.findById(id,pageable).getContent();
     }
 }
