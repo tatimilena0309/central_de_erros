@@ -1,6 +1,7 @@
 package com.codenation.centraldeerros.model;
 
 import com.codenation.centraldeerros.enums.Level;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -8,6 +9,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Table(name = "evento")
@@ -24,11 +27,11 @@ public class Evento {
 
     @NotNull
     @NotBlank
-    private String descricaoEvento;
+    private String descricao;
 
     @NotNull
     @NotBlank
-    private String logEvento;
+    private String  log;
 
     @NotNull
     @NotBlank
@@ -36,7 +39,14 @@ public class Evento {
 
     @NotNull
     @NotBlank
-    private Timestamp data;
+
+    // @JsonFormat(pattern = "yyyy-MM-dd")
+   // private LocalDate localDate;
+    // @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+    //    private Date date;
+    //
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")//
+    private LocalDateTime data;
 
     @NotNull
     @NotBlank
@@ -45,11 +55,11 @@ public class Evento {
     public Evento() {
     }
 
-    public Evento(Long id, Level level, String descricaoEvento, String logEvento, String origem, Timestamp data, Integer quantidade) {
+    public Evento(Long id, @NotNull @NotBlank Level level, @NotNull @NotBlank String descricao, @NotNull @NotBlank String log, @NotNull @NotBlank String origem, @NotNull @NotBlank LocalDateTime data, @NotNull @NotBlank Integer quantidade) {
         this.id = id;
         this.level = level;
-        this.descricaoEvento = descricaoEvento;
-        this.logEvento = logEvento;
+        this.descricao = descricao;
+        this.log = log;
         this.origem = origem;
         this.data = data;
         this.quantidade = quantidade;
@@ -71,20 +81,20 @@ public class Evento {
         this.level = level;
     }
 
-    public String getDescricaoEvento() {
-        return descricaoEvento;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setDescricaoEvento(String descricaoEvento) {
-        this.descricaoEvento = descricaoEvento;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
-    public String getLogEvento() {
-        return logEvento;
+    public String getLog() {
+        return log;
     }
 
-    public void setLogEvento(String logEvento) {
-        this.logEvento = logEvento;
+    public void setLog(String log) {
+        this.log = log;
     }
 
     public String getOrigem() {
@@ -95,11 +105,11 @@ public class Evento {
         this.origem = origem;
     }
 
-    public Timestamp getData() {
+    public LocalDateTime getData() {
         return data;
     }
 
-    public void setData(Timestamp data) {
+    public void setData(LocalDateTime data) {
         this.data = data;
     }
 

@@ -19,4 +19,8 @@ public class LocalDateTimeJsonConverter implements JsonSerializer<LocalDateTime>
             throws JsonParseException {
         return LocalDateTime.parse(json.getAsString(), dateTimeFormatter);
     }
+
+    public LocalDateTime deserialize(JsonElement json) {
+        return LocalDateTime.parse(json.getAsString(), dateTimeFormatter);
+    }
 }

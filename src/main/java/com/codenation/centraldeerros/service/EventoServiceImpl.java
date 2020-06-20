@@ -3,10 +3,13 @@ package com.codenation.centraldeerros.service;
 import com.codenation.centraldeerros.enums.Level;
 import com.codenation.centraldeerros.model.Evento;
 import com.codenation.centraldeerros.repository.EventoRepository;
+import com.google.gson.JsonElement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,11 +29,6 @@ public class EventoServiceImpl implements EventoService {
     }
 
     @Override
-    public Optional<Evento> findById(Long id) {
-        return Optional.empty();
-    }
-
-    @Override
     public Evento save(Evento evento) {
         return this.eventoRepository.save(evento);
     }
@@ -43,11 +41,26 @@ public class EventoServiceImpl implements EventoService {
     @Override
     public List<Evento> findByLevel(Level level, Pageable pageable) {
 
-        return this.eventoRepository.findByLevel(level,pageable).getContent();
+        return this.eventoRepository.findByLevel(level, pageable).getContent();
     }
 
     @Override
-    public List<Evento> findById(Long id, Pageable pageable) {
-        return this.eventoRepository.findById(id,pageable).getContent();
+    public List<Evento> findByDescricao(String descricao, Pageable pageable) {
+        return this.eventoRepository.findByDescricao(descricao, pageable).getContent();
+    }
+
+    @Override
+    public List<Evento> findByOrigem(String origem, Pageable pageable) {
+        return this.eventoRepository.findByOrigem(origem, pageable).getContent();
+    }
+
+    @Override
+    public List<Evento> findByData(LocalDateTime data, Pageable pageable) {
+        return this.eventoRepository.findByData(data, pageable).getContent();
+    }
+
+    @Override
+    public Optional<String> findById(Long id) {
+        return Optional.of(this.eventoRepository.findByIdLog(id).get());
     }
 }
