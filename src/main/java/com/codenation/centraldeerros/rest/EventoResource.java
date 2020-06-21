@@ -1,7 +1,8 @@
 package com.codenation.centraldeerros.rest;
 
-import com.codenation.centraldeerros.model.Evento;
-import com.codenation.centraldeerros.repository.EventoRepository;
+import com.codenation.centraldeerros.dto.ResponseEventoDTO;
+import com.codenation.centraldeerros.entity.Evento;
+import com.codenation.centraldeerros.mappers.EventoResponseMapper;
 import com.codenation.centraldeerros.service.EventoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -9,20 +10,23 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.util.List;
-import java.util.Optional;
-
 @RestController
 @RequestMapping("/api/evento")
 public class EventoResource {
 
     @Autowired
     private EventoService eventoService;
+    @Autowired
+    private EventoResponseMapper eventoMapper;
+
+    public EventoResource(EventoService eventoService, EventoResponseMapper eventoMapper) {
+        this.eventoService = eventoService;
+        this.eventoMapper = eventoMapper;
+    }
 
     @GetMapping
-    public Iterable<Evento> findAll(Pageable pageable) {
-        return this.eventoService.findAll(pageable);
+    public Iterable<ResponseEventoDTO> findAll(Pageable pageable) {
+        return eventoMapper.map(this.eventoService.findAll(pageable));
     }
 
    /* @GetMapping("/api/jedi/{id}")

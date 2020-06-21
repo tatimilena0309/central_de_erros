@@ -1,18 +1,20 @@
-package com.codenation.centraldeerros.model;
+package com.codenation.centraldeerros.entity;
 
 import com.codenation.centraldeerros.enums.Level;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Data
+
 @Table(name = "evento")
 @EntityListeners(AuditingEntityListener.class)
 @Entity
@@ -31,7 +33,7 @@ public class Evento {
 
     @NotNull
     @NotBlank
-    private String  log;
+    private String log;
 
     @NotNull
     @NotBlank
@@ -41,7 +43,7 @@ public class Evento {
     @NotBlank
 
     // @JsonFormat(pattern = "yyyy-MM-dd")
-   // private LocalDate localDate;
+    // private LocalDate localDate;
     // @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ")
     //    private Date date;
     //
@@ -52,9 +54,6 @@ public class Evento {
     @NotBlank
     private Integer quantidade;
 
-    public Evento() {
-    }
-
     public Evento(Long id, @NotNull @NotBlank Level level, @NotNull @NotBlank String descricao, @NotNull @NotBlank String log, @NotNull @NotBlank String origem, @NotNull @NotBlank LocalDateTime data, @NotNull @NotBlank Integer quantidade) {
         this.id = id;
         this.level = level;
@@ -63,6 +62,9 @@ public class Evento {
         this.origem = origem;
         this.data = data;
         this.quantidade = quantidade;
+    }
+
+    public Evento() {
     }
 
     public Long getId() {

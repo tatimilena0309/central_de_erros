@@ -1,13 +1,9 @@
 package com.codenation.centraldeerros.service;
 
-import com.codenation.centraldeerros.dto.EventoDTO;
 import com.codenation.centraldeerros.enums.Level;
-import com.codenation.centraldeerros.model.Evento;
-import com.google.gson.JsonElement;
-import org.springframework.data.convert.ThreeTenBackPortConverters;
+import com.codenation.centraldeerros.entity.Evento;
 import org.springframework.data.domain.Pageable;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;

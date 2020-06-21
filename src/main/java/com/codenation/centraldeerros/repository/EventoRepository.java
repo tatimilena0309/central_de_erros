@@ -1,15 +1,18 @@
 package com.codenation.centraldeerros.repository;
 
 import com.codenation.centraldeerros.enums.Level;
-import com.codenation.centraldeerros.model.Evento;
+import com.codenation.centraldeerros.entity.Evento;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.stereotype.Repository;
+
 import java.time.LocalDateTime;
 import java.util.Optional;
 
 //public interface EventoRepository extends CrudRepository<Evento, Long> {
+@Repository
 public interface EventoRepository extends PagingAndSortingRepository<Evento, Long> {
 
     Page<Evento> findAll(Pageable pageable);

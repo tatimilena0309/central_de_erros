@@ -1,16 +1,23 @@
 package com.codenation.centraldeerros.controller;
 
+
+import com.codenation.centraldeerros.dto.ResponseEventoDTO;
 import com.codenation.centraldeerros.enums.Level;
-import com.codenation.centraldeerros.model.Evento;
+import com.codenation.centraldeerros.entity.Evento;
+import com.codenation.centraldeerros.mappers.EventoResponseMapper;
 import com.codenation.centraldeerros.service.EventoService;
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/evento")
@@ -19,23 +26,19 @@ public class EventoController {
     @Autowired
     private EventoService eventoService;
 
-    // @Autowired
-    //private EventoMapper eventoMapper;
-
-    public EventoController(EventoService eventoService) {
-        this.eventoService = eventoService;
-        //this.eventoMapper = eventoMapper;
-    }
+    @Autowired
+    private EventoResponseMapper eventoMapper;
+    //public static EventoMapper INSTANCE = Mappers.getMapper(EventoMapper.class);
 
     @PostMapping
-    public ResponseEntity<Evento> create(@RequestBody Evento evento) {
+    public ResponseEntity<ResponseEventoDTO> create(@RequestBody Evento evento) {
         //Evento eventoMap = eventoMapper.map();
-        return new ResponseEntity<Evento>(this.eventoService.save(evento), HttpStatus.CREATED);
+        return new ResponseEntity<ResponseEventoDTO>(this.eventoMapper.map(this.eventoService.save(evento)), HttpStatus.CREATED);
     }
 
     @GetMapping
-    public Iterable<Evento> findAll(Pageable pageable) {
-        return this.eventoService.findAll(pageable);
+    public List<ResponseEventoDTO> findAll(Pageable pageable) {
+        return eventoMapper.map(this.eventoService.findAll(pageable));
     }
 
     @GetMapping("/{id}")
