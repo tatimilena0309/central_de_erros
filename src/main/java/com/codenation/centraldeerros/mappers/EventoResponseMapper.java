@@ -15,7 +15,7 @@ public interface EventoResponseMapper {
             @Mapping(source = "id", target = "id"),
             @Mapping(source = "level", target = "level"),
             @Mapping(source = "descricao", target = "descricao"),
-            @Mapping(source = "data", target = "data", dateFormat = "yyyy-MM-dd HH:mm"),
+            @Mapping(source = "data", target = "data", dateFormat = "yyyy-MM-dd HH:mm:ss"),
             @Mapping(source = "origem", target = "origem"),
             @Mapping(source = "quantidade", target = "quantidade")
     })
