@@ -6,7 +6,6 @@ import com.codenation.centraldeerros.repository.EventoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -19,7 +18,7 @@ public class EventoServiceImpl implements EventoService {
 
     @Override
     public List<Evento> findAll(Pageable pageable) {
-        return  this.eventoRepository.findAll(pageable).getContent();
+        return this.eventoRepository.findAll(pageable).getContent();
     }
 
     @Override

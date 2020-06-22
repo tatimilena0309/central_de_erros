@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Evento</title>
+</head>
+<body>
+
+<h1>New Evento</h1>
+
+<form th:action="@{/evento/create}" th:object="${evento}" method="post">
+
+
+    <input type="text" name="level" th:field="*{level}" th:placeholder="level"/> <br/>
+    <span th:if="${#fields.hasErrors('level')}" th:errors="*{level}">Id Error</span>
+    <br/>
+
+    <input type="text" name="descricao" th:field="*{descricao}" th:placeholder="descricao"/> <br/>
+    <span th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}">Descricao Error</span>
+    <br/>
+
+    <input type="text" name="log" th:field="*{log}" th:placeholder="log"/> <br/>
+    <span th:if="${#fields.hasErrors('log')}" th:errors="*{log}">Log Error</span>
+    <br/>
+
+    <input type="text" name="origem" th:field="*{origem}" th:placeholder="origem"/> <br/>
+    <span th:if="${#fields.hasErrors('origem')}" th:errors="*{origem}">Origem Error</span>
+    <br/>
+
+    <input type="text" name="data" th:field="*{data}" th:placeholder="data"/> <br/>
+    <span th:if="${#fields.hasErrors('data')}" th:errors="*{data}">Data Error</span>
+    <br/>
+
+    <button type="submit">Create a new Evento</button>
+</form>
+
+<br>
+
+<a href="#" th:href="@{/evento}">Evento</a>
+
+</body>
+</html>

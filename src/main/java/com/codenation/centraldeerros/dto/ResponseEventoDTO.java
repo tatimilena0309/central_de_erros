@@ -18,7 +18,7 @@ public class ResponseEventoDTO {
     public ResponseEventoDTO(Long id, Level level, String descricao, String origem, String data, Integer quantidade) {
         this.id = id;
         this.level = level;
-        this.descricao= descricao;
+        this.descricao = descricao;
         this.origem = origem;
         this.data = data;
         this.quantidade = quantidade;

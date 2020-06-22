@@ -2,13 +2,7 @@ package com.codenation.centraldeerros.entity;
 
 import com.codenation.centraldeerros.enums.Level;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.stereotype.Component;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -41,12 +35,6 @@ public class Evento {
 
     @NotNull
     @NotBlank
-
-    // @JsonFormat(pattern = "yyyy-MM-dd")
-    // private LocalDate localDate;
-    // @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ")
-    //    private Date date;
-    //
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")//
     private LocalDateTime data;
 

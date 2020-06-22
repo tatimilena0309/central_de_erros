@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Evento</title>
+</head>
+
+<body>
+
+<div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"/>
+
+<h1>Eventos</h1>
+
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Level</th>
+        <th>Descrição</th>
+        <th>Origem</th>
+        <th>Data</th>
+        <th>Quantidade</th>
+    </tr>
+    <tr th:each="evento : ${allEventos}">
+        <td th:text="${evento.id}"></td>
+        <td th:text="${evento.level}"></td>
+        <td th:text="${evento.descricao}"></td>
+        <td th:text="${evento.origem}"></td>
+        <td th:text="${evento.data}"></td>
+        <td th:text="${evento.quantidade}"></td>
+        <td>
+            <a th:href="@{/evento/byId/__${evento.id}__/}" onClick="return confirm('Buscar?')">By Id</a>
+        </td>
+
+    </tr>
+</table>
+
+<br>
+
+<a href="#" th:href="@{/evento/new-evento}">New Evento</a> | <a href="#" th:href="@{/evento}">All Eventos</a>
+
+<form th:action="@{/evento/byLevel}" method="get">
+    <input type="text" name="level"/>
+    <button type="submit">find by level</button>
+</form>
+
+<form th:action="@{/evento/byDescricao}" method="get">
+    <input type="text" name="descricao"/>
+    <button type="submit">find by descrição</button>
+</form>
+
+<form th:action="@{/evento/byOrigem}" method="get">
+    <input type="text" name="origem"/>
+    <button type="submit">find by origem</button>
+</form>
+
+<form th:action="@{/evento/byData}" method="get">
+    <input type="text" name="data"/>
+    <button type="submit">find by data</button>
+</form>
+<input th:text="${resposta}" type="text" name="resposta"/>
+</body>
