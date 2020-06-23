@@ -2,60 +2,83 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+    <script>
+        function submit(id) {
+            document.getElementById(id).submit();
+        }
+    </script>
     <title>Evento</title>
 </head>
 
 <body>
 
-<div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"/>
+<div class="container" style='background: #424242; color: #fff;'>
 
-<h1>Eventos</h1>
+    <div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"/>
 
-<table>
-    <tr>
-        <th>Id</th>
-        <th>Level</th>
-        <th>Descrição</th>
-        <th>Origem</th>
-        <th>Data</th>
-        <th>Quantidade</th>
-    </tr>
-    <tr th:each="evento : ${allEventos}">
-        <td th:text="${evento.id}"></td>
-        <td th:text="${evento.level}"></td>
-        <td th:text="${evento.descricao}"></td>
-        <td th:text="${evento.origem}"></td>
-        <td th:text="${evento.data}"></td>
-        <td th:text="${evento.quantidade}"></td>
-        <td>
-            <a th:href="@{/evento/byId/__${evento.id}__/}" onClick="return confirm('Buscar?')">By Id</a>
-        </td>
+    <h1>Eventos</h1>
 
-    </tr>
-</table>
+    <table class="table table-dark table-striped">
+        <thead>
+        <tr>
+            <th>Id<br>
+                <form th:action="@{/evento/byId}" method="get" id="id">
+                    <input class="form-control" type="text" name="id" style="width: 50px;" placeholder="Id" />
+                </form>
+            </th>
+            <th>Level<br>
+                <form th:action="@{/evento/byLevel}" method="get" id="level">
+                    <input class="form-control" type="text" name="level" style="width: 80px;" placeholder="Level" />
+                </form>
+            </th>
+            <th>Descrição<br>
+                <form th:action="@{/evento/byDescricao}" method="get" id="descricao">
+                    <input class="form-control" type="text" name="descricao" style="width: 200px;" placeholder="Descrição"/>
+                </form>
+            </th>
+            <th>Origem<br>
+                <form th:action="@{/evento/byOrigem}" method="get" id="origem">
+                    <input class="form-control" type="text" name="origem" style="width: 200px;" placeholder="Origem"/>
+                </form>
+            </th>
+            <th>Data<br>
+                <form th:action="@{/evento/byData}" method="get" id="data">
+                    <input class="form-control" type="text" name="data" style="width: 150px;" placeholder="Data"/>
+                </form>
+            </th>
+            <th>Quantidade<br>
+                <form th:action="@{/evento/byQuantidade}" method="get" id="quantidade">
+                    <input class="form-control" type="text" name="quantidade" style="width: 110px;" placeholder="Quantidade"/>
+                </form></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="evento : ${allEventos}">
+            <td> <a th:href="@{/evento/byId/__${evento.id}__/}" onClick="return confirm('Buscar?')" th:text="${evento.id}"></a></td>
+            <td th:text="${evento.level}"></td>
+            <td th:text="${evento.descricao}"></td>
+            <td th:text="${evento.origem}"></td>
+            <td th:text="${evento.data}"></td>
+            <td th:text="${evento.quantidade}"></td>
+        </tr>
+        </tbody>
+    </table>
 
-<br>
+    <br>
 
-<a href="#" th:href="@{/evento/new-evento}">New Evento</a> | <a href="#" th:href="@{/evento}">All Eventos</a>
+    <a href="#" th:href="@{/evento/new-evento}" class="btn btn-outline-info">New Evento</a> | <a href="#" th:href="@{/evento}" class="btn btn-outline-secondary">All Eventos</a>
+    </br></br>
+    <!--<input th:text="${resposta}" type="text" name="resposta"/>-->
 
-<form th:action="@{/evento/byLevel}" method="get">
-    <input type="text" name="level"/>
-    <button type="submit">find by level</button>
-</form>
-
-<form th:action="@{/evento/byDescricao}" method="get">
-    <input type="text" name="descricao"/>
-    <button type="submit">find by descrição</button>
-</form>
-
-<form th:action="@{/evento/byOrigem}" method="get">
-    <input type="text" name="origem"/>
-    <button type="submit">find by origem</button>
-</form>
-
-<form th:action="@{/evento/byData}" method="get">
-    <input type="text" name="data"/>
-    <button type="submit">find by data</button>
-</form>
-<input th:text="${resposta}" type="text" name="resposta"/>
+</div>
 </body>

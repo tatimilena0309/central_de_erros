@@ -39,7 +39,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 "/webjars/**",
                 "/user",
                 "/h2/**",
-                "jdbc:postgresql://localhost:5432/central_de_erros");
+                "jdbc:postgresql://localhost:5432/central_de_erros",
+                "/login**",
+                "/evento**",
+                "/evento/new-evento",
+                "/evento/create",
+                "/evento/",
+                "/evento/*",
+                "/evento/**");
     }
 
     @Override

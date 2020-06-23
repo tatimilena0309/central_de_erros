@@ -89,6 +89,7 @@ public class EventoController {
         final ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("evento");
         modelAndView.addObject("allEventos", this.eventoResponseMapper.map(this.eventoService.findByOrigem(origem, pageable)));
+        modelAndView.addObject(pageable);
         return modelAndView;
     }
 
