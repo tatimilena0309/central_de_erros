@@ -52,7 +52,12 @@ public class EventoServiceImpl implements EventoService {
     }
 
     @Override
+    public List<Evento> findByQuantidade(Integer quantidade, Pageable pageable) {
+        return this.eventoRepository.findByQuantidade(quantidade, pageable).getContent();
+    }
+
+    @Override
     public Optional<String> findById(Long id) {
-        return Optional.of(this.eventoRepository.findByIdLog(id).get());
+        return this.eventoRepository.findByIdLog(id);
     }
 }

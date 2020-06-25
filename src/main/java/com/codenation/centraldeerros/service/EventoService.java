@@ -25,4 +25,6 @@ public interface EventoService {
     List<Evento> findByOrigem(String origem, Pageable pageable);
 
     List<Evento> findByData(LocalDateTime data, Pageable pageable);
+
+    List<Evento> findByQuantidade(Integer quantidade, Pageable pageable);
 }

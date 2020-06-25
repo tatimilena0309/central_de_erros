@@ -83,4 +83,10 @@ public class EventoResource {
     public ResponseEntity<Iterable<ResponseEventoDTO>> findByData(@PathVariable("data") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime data, Pageable pageable) {
         return new ResponseEntity<>(this.eventoResponseMapper.map(this.eventoService.findByData(data, pageable)), HttpStatus.OK);
     }
+    @ApiOperation(value = "Retorna lista buscando pela quantidade", response = ResponseEventoDTO.class)
+    @ApiResponses(value = {@ApiResponse(code = 404, message = "Não foram encontrados registros"), @ApiResponse(code = 200, message = "Ok")})
+    @GetMapping("/byQuantidade/{quantidade}")
+    public ResponseEntity<Iterable<ResponseEventoDTO>> findByQuantidade(@PathVariable("quantidade")Integer quantidade, Pageable pageable) {
+        return new ResponseEntity<>(this.eventoResponseMapper.map(this.eventoService.findByQuantidade(quantidade, pageable)), HttpStatus.OK);
+    }
 }

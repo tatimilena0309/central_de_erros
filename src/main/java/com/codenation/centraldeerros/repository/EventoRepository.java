@@ -7,6 +7,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
+
+import java.net.ContentHandler;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -29,5 +31,6 @@ public interface EventoRepository extends PagingAndSortingRepository<Evento, Lon
             " where e.id = :id ")
     Optional<String> findByIdLog(Long id);
 
+    Page<Evento> findByQuantidade(Integer quantidade, Pageable pageable);
 }
 

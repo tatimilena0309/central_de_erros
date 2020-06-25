@@ -60,19 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/evento/byId/",
                 "jdbc:postgresql://localhost:5432/central_de_erros");
     }
-        protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("**/usuario/**").permitAll()
-                .antMatchers("/evento/**").hasRole("USER")
-                .antMatchers("/evento").hasRole("USER")
-                .antMatchers("/evento/new-evento").hasRole("ADMIN")
-                .antMatchers("/evento/create").hasRole("ADMIN")
-                .anyRequest().authenticated()
-                .and()
-                .httpBasic()
-                .and()
-                .csrf().disable();
-    }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {

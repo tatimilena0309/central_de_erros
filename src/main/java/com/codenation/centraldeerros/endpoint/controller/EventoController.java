@@ -1,6 +1,7 @@
 package com.codenation.centraldeerros.endpoint.controller;
 
 import com.codenation.centraldeerros.dto.InsertEventoDTO;
+import com.codenation.centraldeerros.dto.ResponseEventoDTO;
 import com.codenation.centraldeerros.enums.Level;
 import com.codenation.centraldeerros.mappers.EventoInsertMapper;
 import com.codenation.centraldeerros.mappers.EventoResponseMapper;
@@ -8,6 +9,8 @@ import com.codenation.centraldeerros.service.EventoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -64,10 +67,8 @@ public class EventoController {
 
     @GetMapping(path = "/evento/byId/{id}")
     public ModelAndView findById(@PathVariable("id") final Long id, ModelAndView modelAndView, RedirectAttributes redirectAttributes) {
-
-        //final ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("evento");
-        modelAndView.addObject("resposta", this.eventoService.findById(id).get());
+        modelAndView.addObject("resposta", this.eventoService.findById(id));
         return modelAndView;
         //return "redirect:/evento";
     }
@@ -102,6 +103,13 @@ public class EventoController {
         final ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("evento");
         modelAndView.addObject("allEventos", this.eventoResponseMapper.map(this.eventoService.findByData(data, pageable)));
+        return modelAndView;
+    }
+    @GetMapping(path = "/evento/byQuantidade")
+    public ModelAndView findByQuantidade(@RequestParam(value = "quantidade") Integer quantidade , Model model, Pageable pageable, RedirectAttributes redirectAttributes) {
+        final ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("evento");
+        modelAndView.addObject("allEventos", this.eventoResponseMapper.map(this.eventoService.findByQuantidade(quantidade, pageable)));
         return modelAndView;
     }
 
