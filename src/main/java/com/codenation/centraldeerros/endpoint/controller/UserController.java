@@ -41,7 +41,7 @@ public class UserController {
     @GetMapping("/usuario/login")
     public ModelAndView newLoginPag() {
         final ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("login");
+        modelAndView.setViewName("index");
         modelAndView.addObject("usuario", new Usuario() {
         });
         return modelAndView;
@@ -51,12 +51,12 @@ public class UserController {
     public String autenticar(@Valid @ModelAttribute Usuario usuario) {
         UserDetails userDetails = this.customUserDetailsService.loadUserByUsername(usuario.getEmail());
         if (userDetails == null) {
-            return "redirect:/login";
+            return "redirect:/index";
         }
         if (userDetails.getUsername().equals(usuario.getEmail()) && userDetails.getPassword().equals(usuario.getPassword())) {
             return "redirect:/evento";
         }
-        return "redirect:/login";
+        return "redirect:/index";
     }
 
 }
