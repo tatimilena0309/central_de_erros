@@ -1,10 +1,15 @@
 package com.codenation.centraldeerros.service;
 
-import com.codenation.centraldeerros.entity.User;
+import com.codenation.centraldeerros.entity.Usuario;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Optional;
 
 public interface UserService {
 
-    Optional<User> findById(Long userId);
+    Optional<Usuario> findById(Long userId);
+
+    Optional<Usuario> save(Usuario usuario);
+
+    Usuario findByEmail(String email);
 }

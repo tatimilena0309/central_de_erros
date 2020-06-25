@@ -2,22 +2,54 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Evento</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+    <script>
+        function submit(id) {
+            document.getElementById(id).submit();
+        }
+    </script>
+    <title>Login</title>
 </head>
 
 <body>
+<br>
+	<div class="container">
+	<div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"/>
 
-<div th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"/>
+	<div class="row">
+		<div class="col"></div>
+		<div class="col" style='background: #424242; color: #fff; border-radius: 10px; box-shadow: 8px 8px 8px #888;'>
+			<br>
+			<h1>Login</h1>
+			<br>
+			<form th:action="@{/usuario/autenticar}" th:object="${usuario}" method="post">
+				<div class="form-group">
+					<label for="email">Email:</label>
+				    <input type="text" name="email" th:field="*{email}" th:placeholder="email" class="form-control" required/> 
+				    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</span>
+			    </div>
 
-<h1>Eventos</h1>
+				<div class="form-group">
+					<label for="password">Password:</label>
+				    <input type="password" name="password" th:field="*{password}" th:placeholder="password" class="form-control col-8" required/>
+				    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</span>
+			    </div>
 
-<table>
-    <tr>
-        <th>Id</th>
-        <th>FullName</th>
-        <th>email</th>
-        <th>Password</th>
-        <th>Created_at</th>
-    </tr>
-</table>
+			    <button type="submit" class="btn btn-outline-info">Login</button>
+
+			</form>
+			<br>
+		</div>
+		<div class="col"></div>
+	</div>
+	</div>
 </body>

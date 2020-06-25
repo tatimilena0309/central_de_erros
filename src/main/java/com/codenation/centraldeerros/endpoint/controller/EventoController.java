@@ -1,4 +1,4 @@
-package com.codenation.centraldeerros.controller;
+package com.codenation.centraldeerros.endpoint.controller;
 
 import com.codenation.centraldeerros.dto.InsertEventoDTO;
 import com.codenation.centraldeerros.enums.Level;
@@ -8,6 +8,7 @@ import com.codenation.centraldeerros.service.EventoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,7 +20,6 @@ import javax.validation.Valid;
 import java.time.LocalDateTime;
 
 @Controller
-@RequestMapping("/evento")
 public class EventoController {
 
     @Autowired
@@ -31,7 +31,9 @@ public class EventoController {
     @Autowired
     private EventoInsertMapper eventoInsertMapper;
 
-    @PostMapping("/create")
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping(path = "admin/evento/create")
+    // @Transactional(rollbackOn = Exception.class)
     public String create(@Valid @ModelAttribute InsertEventoDTO evento, BindingResult result, RedirectAttributes
             redirectAttributes) {
         if (result.hasErrors()) {
@@ -42,15 +44,17 @@ public class EventoController {
         return "redirect:";
     }
 
-    @GetMapping
+    @GetMapping(path = "/evento/")
     public ModelAndView findAll(Pageable pageable) {
+        //@AuthenticationPrincipal UserDetails userDetails) {
+        //System.out.println(userDetails);
         final ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("evento");
         modelAndView.addObject("allEventos", eventoResponseMapper.map(this.eventoService.findAll(pageable)));
         return modelAndView;
     }
 
-    @GetMapping("/new-evento")
+    @GetMapping(path = "admin/evento/new-evento")
     public ModelAndView newEventoPag() {
         final ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("new-evento");
@@ -58,7 +62,7 @@ public class EventoController {
         return modelAndView;
     }
 
-    @GetMapping("/byId/{id}")
+    @GetMapping(path = "/evento/byId/{id}")
     public ModelAndView findById(@PathVariable("id") final Long id, ModelAndView modelAndView, RedirectAttributes redirectAttributes) {
 
         //final ModelAndView modelAndView = new ModelAndView();
@@ -68,7 +72,7 @@ public class EventoController {
         //return "redirect:/evento";
     }
 
-    @GetMapping("/byLevel")
+    @GetMapping(path = "/evento/byLevel")
     public ModelAndView findByLevel(@RequestParam(value = "level") Level level, Model model, Pageable pageable, RedirectAttributes redirectAttributes) {
         final ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("evento");
@@ -76,7 +80,7 @@ public class EventoController {
         return modelAndView;
     }
 
-    @GetMapping("/byDescricao")
+    @GetMapping(path = "/evento/byDescricao")
     public ModelAndView findByDescricao(@RequestParam(value = "descricao") String descricao, Model model, Pageable pageable, RedirectAttributes redirectAttributes) {
         final ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("evento");
@@ -84,7 +88,7 @@ public class EventoController {
         return modelAndView;
     }
 
-    @GetMapping("/byOrigem")
+    @GetMapping(path = "/evento/byOrigem")
     public ModelAndView findByOrigem(@RequestParam(value = "origem") String origem, Model model, Pageable pageable, RedirectAttributes redirectAttributes) {
         final ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("evento");
@@ -93,7 +97,7 @@ public class EventoController {
         return modelAndView;
     }
 
-    @GetMapping("/byData")
+    @GetMapping(path = "/evento/byData")
     public ModelAndView findByData(@RequestParam(value = "data") @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime data, Model model, Pageable pageable, RedirectAttributes redirectAttributes) {
         final ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("evento");

@@ -2,41 +2,74 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+    <script>
+        function submit(id) {
+            document.getElementById(id).submit();
+        }
+    </script>
     <title>Evento</title>
 </head>
 <body>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-6" style='background: #424242; color: #fff; border-radius: 10px; box-shadow: 8px 8px 8px #888;'>
+                <br>
+                <h1>New Evento</h1>
+                <br>
+                <form th:action="@{/evento/create}" th:object="${evento}" method="post">
 
-<h1>New Evento</h1>
+                    <div class="form-group">
+                        <label for="level">Level:</label>
+                        <input type="text" name="level" th:field="*{level}" th:placeholder="level" class="form-control" required/>
+                        <span th:if="${#fields.hasErrors('level')}" th:errors="*{level}">Level Error</span>
+                    </div>
 
-<form th:action="@{/evento/create}" th:object="${evento}" method="post">
+                    <div class="form-group">
+                        <label for="descricao">Descrição:</label>
+                        <input type="text" name="descricao" th:field="*{descricao}" th:placeholder="descricao" class="form-control" required/> 
+                        <span th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}">Descricao Error</span>
+                    </div>
 
+                    <div class="form-group">
+                        <label for="log">Log:</label>
+                        <input type="text" name="log" th:field="*{log}" th:placeholder="log" class="form-control" required/> 
+                        <span th:if="${#fields.hasErrors('log')}" th:errors="*{log}">Log Error</span>
+                    </div>
 
-    <input type="text" name="level" th:field="*{level}" th:placeholder="level"/> <br/>
-    <span th:if="${#fields.hasErrors('level')}" th:errors="*{level}">Id Error</span>
-    <br/>
+                    <div class="form-group">
+                        <label for="origem">Origem:</label>
+                        <input type="text" name="origem" th:field="*{origem}" th:placeholder="origem" class="form-control" required/> 
+                        <span th:if="${#fields.hasErrors('origem')}" th:errors="*{origem}">Origem Error</span>
+                    </div>
 
-    <input type="text" name="descricao" th:field="*{descricao}" th:placeholder="descricao"/> <br/>
-    <span th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}">Descricao Error</span>
-    <br/>
+                    <div class="form-group">
+                        <label for="data">Data:</label>
+                        <input type="datetime-local" name="data" th:field="*{data}" th:placeholder="data" class="form-control col-6" required/> 
+                        <span th:if="${#fields.hasErrors('data')}" th:errors="*{data}">Data Error</span>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-outline-info">Create a new Evento</button>
+                    <a href="#" th:href="@{/evento}" class="btn btn-outline-secondary">Eventos</a>
+                </form>
 
-    <input type="text" name="log" th:field="*{log}" th:placeholder="log"/> <br/>
-    <span th:if="${#fields.hasErrors('log')}" th:errors="*{log}">Log Error</span>
-    <br/>
-
-    <input type="text" name="origem" th:field="*{origem}" th:placeholder="origem"/> <br/>
-    <span th:if="${#fields.hasErrors('origem')}" th:errors="*{origem}">Origem Error</span>
-    <br/>
-
-    <input type="text" name="data" th:field="*{data}" th:placeholder="data"/> <br/>
-    <span th:if="${#fields.hasErrors('data')}" th:errors="*{data}">Data Error</span>
-    <br/>
-
-    <button type="submit">Create a new Evento</button>
-</form>
-
-<br>
-
-<a href="#" th:href="@{/evento}">Evento</a>
+                <br>
+            </div>
+            <div class="col-3"></div>
+        </div>
+        <br>
+    </div>
 
 </body>
 </html>

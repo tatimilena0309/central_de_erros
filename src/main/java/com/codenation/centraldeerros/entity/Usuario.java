@@ -1,10 +1,6 @@
 package com.codenation.centraldeerros.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,26 +9,26 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
 
+
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
 @EntityListeners(AuditingEntityListener.class)
-@EqualsAndHashCode(of = "id")
-@Table(name = "users")
-public class User implements UserDetails {
-    @Id
+@Table(name = "usuario")
+public class Usuario implements UserDetails {
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Id
+    Long id;
 
     @Column
     @NotNull
+    @NotEmpty
     @Size(max = 100)
     private String fullName;
 
@@ -40,24 +36,67 @@ public class User implements UserDetails {
     @Email
     @Size(max = 100)
     @NotNull
+    @NotEmpty
     private String email;
 
     @Column
     @NotNull
+    @NotEmpty
     @Size(max = 255)
     private String password;
 
     @Column
     @CreatedDate
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdAt;
+
+    @Column
+    @NotNull
+    @NotEmpty
+    private boolean admin;
+
+    public Usuario() {
+    }
+
+    public Usuario(Long id, @NotNull @Size(max = 100) String fullName, @Email @Size(max = 100) @NotNull String email, @NotNull @Size(max = 255) String password, LocalDateTime createdAt, boolean admin) {
+        this.id = id;
+        this.fullName = fullName;
+        this.email = email;
+        this.password = password;
+        this.createdAt = createdAt;
+        this.admin = admin;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Arrays.asList(new SimpleGrantedAuthority("ADMIN"));
     }
 
-    @Override
+
     public String getPassword() {
         return this.password;
     }
@@ -85,5 +124,25 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
     }
 }

@@ -33,7 +33,6 @@ public class EventoServiceImpl implements EventoService {
 
     @Override
     public List<Evento> findByLevel(Level level, Pageable pageable) {
-
         return this.eventoRepository.findByLevel(level, pageable).getContent();
     }
 
