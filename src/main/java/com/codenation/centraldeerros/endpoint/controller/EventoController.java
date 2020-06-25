@@ -31,8 +31,8 @@ public class EventoController {
     @Autowired
     private EventoInsertMapper eventoInsertMapper;
 
-    @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping(path = "admin/evento/create")
+    //@PreAuthorize("hasRole('ADMIN')")
+    @PostMapping(path = "/evento/create")
     // @Transactional(rollbackOn = Exception.class)
     public String create(@Valid @ModelAttribute InsertEventoDTO evento, BindingResult result, RedirectAttributes
             redirectAttributes) {
@@ -44,7 +44,7 @@ public class EventoController {
         return "redirect:";
     }
 
-    @GetMapping(path = "/evento/")
+    @GetMapping(path = "/evento")
     public ModelAndView findAll(Pageable pageable) {
         //@AuthenticationPrincipal UserDetails userDetails) {
         //System.out.println(userDetails);
@@ -54,7 +54,7 @@ public class EventoController {
         return modelAndView;
     }
 
-    @GetMapping(path = "admin/evento/new-evento")
+    @GetMapping(path = "/evento/new-evento")
     public ModelAndView newEventoPag() {
         final ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("new-evento");

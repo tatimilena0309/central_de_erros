@@ -1,8 +1,10 @@
 package com.codenation.centraldeerros.endpoint.controller;
 
 import com.codenation.centraldeerros.entity.Usuario;
+import com.codenation.centraldeerros.service.CustomUserDetailsService;
 import com.codenation.centraldeerros.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,8 +18,8 @@ public class UserController {
     @Autowired
     private UserService service;
 
-   // @Autowired
-    //private ImplementsUserDetailService implementsUserDetailService;
+    @Autowired
+    private CustomUserDetailsService customUserDetailsService;
 
     @GetMapping("/usuario/cadastrar")
     public ModelAndView newUserPag() {
@@ -26,10 +28,11 @@ public class UserController {
         modelAndView.addObject("usuario", new Usuario());
         return modelAndView;
     }
+
     @PostMapping("/usuario/save")
     public String create(@Valid @ModelAttribute Usuario usuario) {
-        Optional<Usuario> save = service.save(usuario);
-        if (!save.isPresent()) {
+        Usuario save = service.save(usuario);
+        if (usuario == null) {
             return "redirect:cadastro";
         }
         return "redirect:login";
@@ -46,7 +49,7 @@ public class UserController {
 
     @PostMapping("/usuario/autenticar")
     public String autenticar(@Valid @ModelAttribute Usuario usuario) {
-       /* UserDetails userDetails = this.implementsUserDetailService.loadUserByUsername(usuario.getEmail());
+        UserDetails userDetails = this.customUserDetailsService.loadUserByUsername(usuario.getEmail());
         if (userDetails == null) {
             return "redirect:/login";
         }
@@ -54,7 +57,6 @@ public class UserController {
             return "redirect:/evento";
         }
         return "redirect:/login";
-    }*/
-    return null;}
+    }
 
 }

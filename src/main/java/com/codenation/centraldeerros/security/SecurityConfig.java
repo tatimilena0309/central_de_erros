@@ -3,9 +3,11 @@ package com.codenation.centraldeerros.security;
 import com.codenation.centraldeerros.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -43,7 +45,33 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/swagger-ui.html",
                 "/webjars/**",
                 "/h2/**",
+                "/usuario/**",
+                "/evento",
+                "/evento/**",
+                "/evento/",
+                "/evento**",
+                "/evento/new-evento",
+                "/evento/create",
+                "/evento/",
+                "/evento/*",
+                "/evento/**",
+                "/evento**",
+                "/evento/byId?id=**",
+                "/evento/byId/",
                 "jdbc:postgresql://localhost:5432/central_de_erros");
+    }
+        protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests()
+                .antMatchers("**/usuario/**").permitAll()
+                .antMatchers("/evento/**").hasRole("USER")
+                .antMatchers("/evento").hasRole("USER")
+                .antMatchers("/evento/new-evento").hasRole("ADMIN")
+                .antMatchers("/evento/create").hasRole("ADMIN")
+                .anyRequest().authenticated()
+                .and()
+                .httpBasic()
+                .and()
+                .csrf().disable();
     }
 
     @Bean
