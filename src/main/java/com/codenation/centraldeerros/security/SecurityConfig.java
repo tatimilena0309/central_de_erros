@@ -58,6 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/evento**",
                 "/evento/byId?id=**",
                 "/evento/byId/",
+                "https://central-de-erros-aceleradev.herokuapp.com/**",
                 "jdbc:postgresql://localhost:5432/central_de_erros");
     }
 
